@@ -1,0 +1,23 @@
+.login-inner{
+    text-align: center;
+    display: flex;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 200px;
+    width: 100vw;
+    padding-bottom: 200px;
+    background-color: aqua;
+    background-size: cover;
+}
+
+.form-group{
+    border-radius: 5px;
+    border-width: 0px;
+}
+
+.login{
+    background-color: bisque;
+    border-width: 1px;
+    padding: 3px;
+}
