@@ -9,15 +9,14 @@ function Login() {
 const submitHandler= async (e) => {
     e.preventDefault()
      
-     const {data}= await axios.get(apiUrl + "login");
-     console.log(data[0])
-     log(details,data[0])
-     
-    console.log(details)
+     const {data}= await axios.post(apiUrl + "login",details);
+     const jwt=data.jwtToken
+     console.log(jwt)
+     log(jwt)
 } 
 
-const log= (details,userDetails)=>{
-  if (userDetails.username===details.username && userDetails.password===details.password){
+const log= (jwt)=>{
+  if (jwt !== undefined){
     console.log("logged")
   }else{
     console.log("logged error")
