@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './index.css'
 import axios from "axios";
 const apiUrl = "http://localhost:8080/"
+import Cookies from 'js-cookie'
 
 function Login() {
 
@@ -11,6 +12,7 @@ const submitHandler= async (e) => {
      
      const {data}= await axios.post(apiUrl + "login",details);
      const jwt=data.jwtToken
+     Cookies.set('jwt_token', jwtToken, {expires: 30})
      console.log(jwt)
      log(jwt)
 } 
