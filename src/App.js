@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './components/Login/index.js'
-import Home from './components/Home/index.js'
 import './App.css'
+
 
 function App() {
 

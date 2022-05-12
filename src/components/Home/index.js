@@ -1,15 +1,22 @@
 import React, {useState} from 'react'
 import './index.css'
 import axios from "axios";
+import Cookies from 'js-cookie'
 const apiUrl = "http://localhost:8080/"
 
 function Home() {
      
     const [details,setDetails]=useState({id:"",name:""})
 
+    const jwtToken = Cookies.get('jwt_token')
+
     const submitHandler=async (e) =>{
         e.preventDefault()
-        const data= await axios.post(apiUrl + "stydentForm",details);
+        const config={
+          headers: {
+            'Authorization': `Basic ${jwtToken}` 
+          }}
+        const data= await axios.post(apiUrl + "stydentForm",details,config);
         console.log(data)
     }
 
