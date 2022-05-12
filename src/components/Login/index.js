@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
 import './index.css'
 import axios from "axios";
-const apiUrl = "http://localhost:8080/"
 import Cookies from 'js-cookie'
 
+const apiUrl = "http://localhost:8080/"
 function Login() {
 
     const [details,setDetails]=useState({username:"",password:""})
 const submitHandler= async (e) => {
     e.preventDefault()
-     
+     let jwtToken
      const {data}= await axios.post(apiUrl + "login",details);
      const jwt=data.jwtToken
      Cookies.set('jwt_token', jwtToken, {expires: 30})
