@@ -1,53 +1,80 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
 import './index.css'
 import axios from "axios";
 import Cookies from 'js-cookie'
 
 const apiUrl = "http://localhost:8080/"
+
 function Login() {
 
-    const [details,setDetails]=useState({username:"",password:""})
-const submitHandler= async (e) => {
-    e.preventDefault()
-     let jwtToken
-     const {data}= await axios.post(apiUrl + "login",details);
-     const jwt=data.jwtToken
-     Cookies.set('jwt_token', jwtToken, {expires: 30})
-     console.log(jwt)
-     log(jwt)
-} 
 
-const log= (jwt)=>{
-  if (jwt !== undefined){
-    console.log("logged")
-  }else{
+    const [details,setDetails]=useState({username:"",password:""})
+    const submitHandler= async (e) => {
+      e.preventDefault()
+      let jwtToken
+      
+      const {data}= await axios.post(apiUrl + "login",details);
+      const jwt=data.jwtToken
+      const status=data.status
+      Cookies.set('jwt_token', jwtToken, {expires: 30})
+      console.log(jwt)
+      log(jwt,status)
+} 
+const history = useNavigate();
+const log= (jwt,status)=>{
+  if (jwt !== undefined && status==='admin'){
+    history('/admin')
+
+  }else if(jwt !== undefined ){
+    history('/home')
+
+  } else{
     console.log("logged error")
   }
 }
 
   return (
+    <div class="container">
+     <div class="image">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz-home-img.png"
+        alt="dresses to be noticed"
+        className="home-desktop-img"
+      />
+      </div> 
+    <div class="form-class">
     <form onSubmit={submitHandler}>
      <div class="login-inner">
-      <h2>Login Page</h2>
+      <h2>Welcome back,</h2>
+      <h4>Please enter your details</h4>
       
       <div class="form-group">
       <label htmlFor='username'>Username : </label>
-      <input type="text" name="username" onChange={e =>setDetails({...details, username:e.target.value})} value={details.username}/>  
+      <input type="text" class="input" name="username" onChange={e =>setDetails({...details, username:e.target.value})} value={details.username}/>  
       </div>
       <hr />
       <div class="form-group">
       <label htmlFor='password'>Password : </label>
-      <input type="password" name="password" onChange={e =>setDetails({...details, password:e.target.value})} value={details.password} />  
+      <input type="password" class="input" name="password" onChange={e =>setDetails({...details, password:e.target.value})} value={details.password} />  
       </div>
       <hr />
       <div class="form-group">
-      <input type="submit" class="login" value="Login" />  
-      </div>
-     
+      <input type="submit" class="login input" value="Login" />  
+      </div><br />
+      <div>
+        <Link to="/register">
+        <button class="btn btn-primary">Register us!</button></Link>
+      
+        </div>
+  
      </div>
-    
-    
     </form>
+    
+    </div>
+    
+    </div>
   )
 }
 
